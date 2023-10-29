@@ -72,7 +72,7 @@ public class StaticAudioPlayer implements de.maxhenkel.voicechat.api.audiochanne
             instance.startPlaying();
             return instance;
         } catch (Exception e) {
-            AudioPlayer.LOGGER.error("Failed to play audio", e);
+            AudioPlayer.LOGGER.error("Не удалось воспроизвести звук", e);
             if (p != null) {
                 p.displayClientMessage(Component.literal("Failed to play audio: %s".formatted(e.getMessage())).withStyle(ChatFormatting.DARK_RED), true);
             }
@@ -153,7 +153,7 @@ public class StaticAudioPlayer implements de.maxhenkel.voicechat.api.audiochanne
 
         while ((frame = this.audio.get()) != null) {
             if (frame.length != FRAME_SIZE) {
-                AudioPlayer.LOGGER.error("Got invalid audio frame size {}!={}", frame.length, FRAME_SIZE);
+                AudioPlayer.LOGGER.error("Получен недопустимый размер аудиокадра {}!={}", frame.length, FRAME_SIZE);
                 break;
             }
             byte[] encoded = encoder.encode(frame);
