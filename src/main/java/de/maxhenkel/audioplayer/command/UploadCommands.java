@@ -28,29 +28,29 @@ public class UploadCommands {
     @Command
     public void audioPlayer(CommandContext<CommandSourceStack> context) {
         context.getSource().sendSuccess(() ->
-                        Component.literal("Upload audio via Filebin ")
-                                .append(Component.literal("here").withStyle(style -> {
+                        Component.literal("Загрузить аудиофайл через Filebin ")
+                                .append(Component.literal("здесь").withStyle(style -> {
                                     return style
                                             .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/audioplayer upload"))
-                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to show more")));
+                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите, чтобы показать подробнее")));
                                 }).withStyle(ChatFormatting.GREEN))
                                 .append(".")
                 , false);
         context.getSource().sendSuccess(() ->
-                        Component.literal("Upload audio with access to the servers file system ")
-                                .append(Component.literal("here").withStyle(style -> {
+                        Component.literal("Загрузить аудиофайл с доступом к файловой системе сервера(Доступно только для администрации) ")
+                                .append(Component.literal("здесь").withStyle(style -> {
                                     return style
                                             .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/audioplayer serverfile"))
-                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to show more")));
+                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите, чтобы показать подробнее")));
                                 }).withStyle(ChatFormatting.GREEN))
                                 .append(".")
                 , false);
         context.getSource().sendSuccess(() ->
-                        Component.literal("Upload audio from a URL ")
-                                .append(Component.literal("here").withStyle(style -> {
+                        Component.literal("Загрузить аудиофайл с URL-адреса ")
+                                .append(Component.literal("здесь").withStyle(style -> {
                                     return style
                                             .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/audioplayer url"))
-                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to show more")));
+                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите, чтобы показать подробнее")));
                                 }).withStyle(ChatFormatting.GREEN))
                                 .append(".")
                 , false);
@@ -63,26 +63,26 @@ public class UploadCommands {
         UUID uuid = UUID.randomUUID();
         String uploadURL = Filebin.getBin(uuid);
 
-        MutableComponent msg = Component.literal("Click ")
-                .append(Component.literal("this link")
+        MutableComponent msg = Component.literal("Нажмите на ")
+                .append(Component.literal("эту ссылку")
                         .withStyle(style -> {
                             return style
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, uploadURL))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to open")));
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите чтобы открыть")));
                         })
                         .withStyle(ChatFormatting.GREEN)
                 )
-                .append(" and upload your sound as ")
+                .append(" и загрузите свой звук в формате ")
                 .append(Component.literal("mp3").withStyle(ChatFormatting.GRAY))
-                .append(" or ")
+                .append(" или ")
                 .append(Component.literal("wav").withStyle(ChatFormatting.GRAY))
                 .append(".\n")
-                .append("Once you have uploaded the file, click ")
-                .append(Component.literal("here")
+                .append("После загрузки файла, нажмите ")
+                .append(Component.literal("сюда")
                         .withStyle(style -> {
                             return style
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/audioplayer filebin " + uuid))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to confirm upload")));
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите, чтобы подтвердить загрузку")));
                         })
                         .withStyle(ChatFormatting.GREEN)
                 )
@@ -96,12 +96,12 @@ public class UploadCommands {
     public void filebinUpload(CommandContext<CommandSourceStack> context, @Name("id") UUID sound) {
         new Thread(() -> {
             try {
-                context.getSource().sendSuccess(() -> Component.literal("Downloading sound, please wait..."), false);
+                context.getSource().sendSuccess(() -> Component.literal("Скачивание звука, пожалуйста, подождите..."), false);
                 Filebin.downloadSound(context.getSource().getServer(), sound);
-                context.getSource().sendSuccess(() -> sendUUIDMessage(sound, Component.literal("Successfully downloaded sound.")), false);
+                context.getSource().sendSuccess(() -> sendUUIDMessage(sound, Component.literal("Звук успешно скачан.")), false);
             } catch (Exception e) {
-                AudioPlayer.LOGGER.warn("{} failed to download a sound: {}", context.getSource().getTextName(), e.getMessage());
-                context.getSource().sendFailure(Component.literal("Failed to download sound: %s".formatted(e.getMessage())));
+                AudioPlayer.LOGGER.warn("{} не удалось скачать звук: {}", context.getSource().getTextName(), e.getMessage());
+                context.getSource().sendFailure(Component.literal("Не удалось скачать звук: %s".formatted(e.getMessage())));
             }
         }).start();
     }
@@ -110,15 +110,15 @@ public class UploadCommands {
     @Command("url")
     public void url(CommandContext<CommandSourceStack> context) {
         context.getSource().sendSuccess(() ->
-                        Component.literal("If you have a direct link to a ")
+                        Component.literal("Если у вас есть прямая ссылка на ")
                                 .append(Component.literal(".mp3").withStyle(ChatFormatting.GRAY))
-                                .append(" or ")
+                                .append(" или ")
                                 .append(Component.literal(".wav").withStyle(ChatFormatting.GRAY))
-                                .append(" file, enter the following command: ")
-                                .append(Component.literal("/audioplayer url <link-to-your-file>").withStyle(ChatFormatting.GRAY).withStyle(style -> {
+                                .append(" файл, введите следующую команду: ")
+                                .append(Component.literal("/audioplayer url <ссылка в кавычках>").withStyle(ChatFormatting.GRAY).withStyle(style -> {
                                     return style
                                             .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/audioplayer url "))
-                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to fill in the command")));
+                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите для заполнения команды")));
                                 }))
                                 .append(".")
                 , false);
@@ -130,18 +130,18 @@ public class UploadCommands {
         UUID sound = UUID.randomUUID();
         new Thread(() -> {
             try {
-                context.getSource().sendSuccess(() -> Component.literal("Downloading sound, please wait..."), false);
+                context.getSource().sendSuccess(() -> Component.literal("Скачивание звука, пожалуйста, подождите..."), false);
                 AudioManager.saveSound(context.getSource().getServer(), sound, url);
-                context.getSource().sendSuccess(() -> sendUUIDMessage(sound, Component.literal("Successfully downloaded sound.")), false);
+                context.getSource().sendSuccess(() -> sendUUIDMessage(sound, Component.literal("Звук успешно скачан.")), false);
             } catch (UnknownHostException e) {
-                AudioPlayer.LOGGER.warn("{} failed to download a sound: {}", context.getSource().getTextName(), e.toString());
-                context.getSource().sendFailure(Component.literal("Failed to download sound: Unknown host"));
+                AudioPlayer.LOGGER.warn("{} не удалось скачать звук: {}", context.getSource().getTextName(), e.toString());
+                context.getSource().sendFailure(Component.literal("Не удалось скачать звук: Неизвестный хост"));
             } catch (UnsupportedAudioFileException e) {
-                AudioPlayer.LOGGER.warn("{} failed to download a sound: {}", context.getSource().getTextName(), e.toString());
-                context.getSource().sendFailure(Component.literal("Failed to download sound: Invalid file format"));
+                AudioPlayer.LOGGER.warn("{} не удалось скачать звук: {}", context.getSource().getTextName(), e.toString());
+                context.getSource().sendFailure(Component.literal("Не удалось скачать звук: Недопустимый формат файла"));
             } catch (Exception e) {
-                AudioPlayer.LOGGER.warn("{} failed to download a sound: {}", context.getSource().getTextName(), e.toString());
-                context.getSource().sendFailure(Component.literal("Failed to download sound: %s".formatted(e.getMessage())));
+                AudioPlayer.LOGGER.warn("{} не удалось скачать звук: {}", context.getSource().getTextName(), e.toString());
+                context.getSource().sendFailure(Component.literal("Не удалось скачать звук: %s".formatted(e.getMessage())));
             }
         }).start();
     }
@@ -150,17 +150,17 @@ public class UploadCommands {
     @Command("serverfile")
     public void serverFile(CommandContext<CommandSourceStack> context) {
         context.getSource().sendSuccess(() ->
-                        Component.literal("Upload a ")
+                        Component.literal("Загрузите ")
                                 .append(Component.literal(".mp3").withStyle(ChatFormatting.GRAY))
-                                .append(" or ")
+                                .append(" или ")
                                 .append(Component.literal(".wav").withStyle(ChatFormatting.GRAY))
-                                .append(" file to ")
+                                .append(" файл в ")
                                 .append(Component.literal(AudioManager.getUploadFolder().toAbsolutePath().toString()).withStyle(ChatFormatting.GRAY))
-                                .append(" on the server and run the command ")
+                                .append(" на сервер и выполните команду ")
                                 .append(Component.literal("/audioplayer serverfile \"yourfile.mp3\"").withStyle(ChatFormatting.GRAY).withStyle(style -> {
                                     return style
                                             .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/audioplayer serverfile "))
-                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to fill in the command")));
+                                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Нажмите для заполнения команды")));
                                 }))
                                 .append(".")
                 , false);
@@ -171,17 +171,17 @@ public class UploadCommands {
     public void serverFileUpload(CommandContext<CommandSourceStack> context, @Name("filename") String fileName) {
         Matcher matcher = SOUND_FILE_PATTERN.matcher(fileName);
         if (!matcher.matches()) {
-            context.getSource().sendFailure(Component.literal("Invalid file name! Valid characters are ")
+            context.getSource().sendFailure(Component.literal("Недопустимое имя файла! Допустимыми символами являются ")
                     .append(Component.literal("A-Z").withStyle(ChatFormatting.GRAY))
                     .append(", ")
                     .append(Component.literal("0-9").withStyle(ChatFormatting.GRAY))
                     .append(", ")
                     .append(Component.literal("_").withStyle(ChatFormatting.GRAY))
-                    .append(" and ")
+                    .append(" и ")
                     .append(Component.literal("-").withStyle(ChatFormatting.GRAY))
-                    .append(". The name must also end in ")
+                    .append(". Имя также должно заканчиваться на ")
                     .append(Component.literal(".mp3").withStyle(ChatFormatting.GRAY))
-                    .append(" or ")
+                    .append(" или ")
                     .append(Component.literal(".wav").withStyle(ChatFormatting.GRAY))
                     .append(".")
             );
@@ -192,41 +192,41 @@ public class UploadCommands {
             Path file = AudioManager.getUploadFolder().resolve(fileName);
             try {
                 AudioManager.saveSound(context.getSource().getServer(), uuid, file);
-                context.getSource().sendSuccess(() -> sendUUIDMessage(uuid, Component.literal("Successfully copied sound.")), false);
-                context.getSource().sendSuccess(() -> Component.literal("Deleted temporary file ").append(Component.literal(fileName).withStyle(ChatFormatting.GRAY)).append("."), false);
+                context.getSource().sendSuccess(() -> sendUUIDMessage(uuid, Component.literal("Звук успешно скопирован.")), false);
+                context.getSource().sendSuccess(() -> Component.literal("Временный файл уделён ").append(Component.literal(fileName).withStyle(ChatFormatting.GRAY)).append("."), false);
             } catch (NoSuchFileException e) {
-                context.getSource().sendFailure(Component.literal("Could not find file ").append(Component.literal(fileName).withStyle(ChatFormatting.GRAY)).append("."));
+                context.getSource().sendFailure(Component.literal("Не удалось найти файл ").append(Component.literal(fileName).withStyle(ChatFormatting.GRAY)).append("."));
             } catch (Exception e) {
-                AudioPlayer.LOGGER.warn("{} failed to copy a sound: {}", context.getSource().getTextName(), e.getMessage());
-                context.getSource().sendFailure(Component.literal("Failed to copy sound: %s".formatted(e.getMessage())));
+                AudioPlayer.LOGGER.warn("{} не удалось скопировать звук: {}", context.getSource().getTextName(), e.getMessage());
+                context.getSource().sendFailure(Component.literal("Не удалось скопировать звук: %s".formatted(e.getMessage())));
             }
         }).start();
     }
 
     public static MutableComponent sendUUIDMessage(UUID soundID, MutableComponent component) {
         return component.append(" ")
-                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Copy ID"))
+                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Скопировать ID"))
                         .withStyle(style -> {
                             return style
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, soundID.toString()))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Copy sound ID")));
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Скопировать ID звука")));
                         })
                         .withStyle(ChatFormatting.GREEN)
                 )
                 .append(" ")
-                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Put on music disc"))
+                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Установить этот звук на пластинку"))
                         .withStyle(style -> {
                             return style
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/audioplayer musicdisc %s".formatted(soundID.toString())))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Put the sound on a music disc")));
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Установить этот звук на пластинку")));
                         })
                         .withStyle(ChatFormatting.GREEN)
                 ).append(" ")
-                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Put on goat horn"))
+                .append(ComponentUtils.wrapInSquareBrackets(Component.literal("Установить на козий рог"))
                         .withStyle(style -> {
                             return style
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/audioplayer goathorn %s".formatted(soundID.toString())))
-                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Put the sound on a goat horn")));
+                                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Установить на козий рог")));
                         })
                         .withStyle(ChatFormatting.GREEN)
                 );
