@@ -99,7 +99,7 @@ public class PlayerManager {
             }
             return true;
         }).stream().map(Player::getPlayer).map(ServerPlayer.class::cast).forEach(player -> {
-            player.displayClientMessage(Component.literal("You need to enable voice chat to hear custom audio"), true);
+            player.displayClientMessage(Component.literal("Чтобы услышать пользовательский звук, необходимо включить голосовой чат"), true);
         });
 
         StaticAudioPlayer staticAudioPlayer = StaticAudioPlayer.create(api, level, sound, p, maxLengthSeconds, category, pos, channelID, distance);
@@ -144,9 +144,9 @@ public class PlayerManager {
 
             if (AudioManager.getLengthSeconds(audio) > maxLengthSeconds) {
                 if (p != null) {
-                    p.displayClientMessage(Component.literal("Audio is too long to play").withStyle(ChatFormatting.DARK_RED), true);
+                    p.displayClientMessage(Component.literal("Аудио слишком длинным для воспроизведения").withStyle(ChatFormatting.DARK_RED), true);
                 } else {
-                    AudioPlayer.LOGGER.error("Audio {} was too long to play", sound);
+                    AudioPlayer.LOGGER.error("Аудио {} было слишком длинным для воспроизведения", sound);
                 }
                 return null;
             }
@@ -155,9 +155,9 @@ public class PlayerManager {
             player.startPlaying();
             return player;
         } catch (Exception e) {
-            AudioPlayer.LOGGER.error("Failed to play audio", e);
+            AudioPlayer.LOGGER.error("Не удалось воспроизвести звук", e);
             if (p != null) {
-                p.displayClientMessage(Component.literal("Failed to play audio: %s".formatted(e.getMessage())).withStyle(ChatFormatting.DARK_RED), true);
+                p.displayClientMessage(Component.literal("Не удалось воспроизвести звук: %s".formatted(e.getMessage())).withStyle(ChatFormatting.DARK_RED), true);
             }
             return null;
         }
