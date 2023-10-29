@@ -71,7 +71,7 @@ public class AudioConverter {
         } else if (audioType == AudioType.MP3) {
             return convertMp3(file);
         }
-        throw new UnsupportedAudioFileException("Unsupported audio type");
+        throw new UnsupportedAudioFileException("Неподдерживаемый тип аудио");
     }
 
     public static short[] convertWav(Path file) throws IOException, UnsupportedAudioFileException {
@@ -92,7 +92,7 @@ public class AudioConverter {
         try {
             Mp3Decoder mp3Decoder = Plugin.voicechatApi.createMp3Decoder(Files.newInputStream(file));
             if (mp3Decoder == null) {
-                throw new IOException("Error creating mp3 decoder");
+                throw new IOException("Ошибка при создании декодера mp3");
             }
             byte[] data = Plugin.voicechatApi.getAudioConverter().shortsToBytes(mp3Decoder.decode());
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
