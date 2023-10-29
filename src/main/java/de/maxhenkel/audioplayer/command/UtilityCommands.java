@@ -23,12 +23,12 @@ public class UtilityCommands {
         ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
 
         if (!(itemInHand.getItem() instanceof RecordItem) && !(itemInHand.getItem() instanceof InstrumentItem)) {
-            context.getSource().sendFailure(Component.literal("Invalid item"));
+            context.getSource().sendFailure(Component.literal("Недопустимый предмет"));
             return;
         }
 
         if (!itemInHand.hasTag()) {
-            context.getSource().sendFailure(Component.literal("Item does not contain NBT data"));
+            context.getSource().sendFailure(Component.literal("ПРедмет не содержит данных NBT"));
             return;
         }
 
@@ -39,7 +39,7 @@ public class UtilityCommands {
         }
 
         if (!tag.contains("CustomSound")) {
-            context.getSource().sendFailure(Component.literal("Item does not have custom audio"));
+            context.getSource().sendFailure(Component.literal("У предмета нет пользовательского звука"));
             return;
         }
 
@@ -54,7 +54,7 @@ public class UtilityCommands {
         tag.remove(ItemStack.TAG_DISPLAY);
         tag.remove("HideFlags");
 
-        context.getSource().sendSuccess(() -> Component.literal("Successfully cleared item"), false);
+        context.getSource().sendSuccess(() -> Component.literal("Предмет успешно очищен"), false);
     }
 
     @Command("id")
@@ -63,12 +63,12 @@ public class UtilityCommands {
         ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
 
         if (!(itemInHand.getItem() instanceof RecordItem) && !(itemInHand.getItem() instanceof InstrumentItem)) {
-            context.getSource().sendFailure(Component.literal("Invalid item"));
+            context.getSource().sendFailure(Component.literal("Недопустимый предмет"));
             return;
         }
 
         if (!itemInHand.hasTag()) {
-            context.getSource().sendFailure(Component.literal("Item does not have custom audio"));
+            context.getSource().sendFailure(Component.literal("У предмета нет пользовательского звука"));
             return;
         }
 
@@ -79,7 +79,7 @@ public class UtilityCommands {
         }
 
         if (!tag.contains("CustomSound")) {
-            context.getSource().sendFailure(Component.literal("Item does not have custom audio"));
+            context.getSource().sendFailure(Component.literal("У предмета нет пользовательского звука"));
             return;
         }
 
