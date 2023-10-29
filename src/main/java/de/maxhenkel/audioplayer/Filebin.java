@@ -57,7 +57,7 @@ public class Filebin {
                 long size = file.get("bytes").getAsLong();
 
                 if (size > AudioPlayer.SERVER_CONFIG.maxUploadSize.get()) {
-                    throw new IOException("Maximum file size exceeded (%sMB>%sMB)".formatted(Math.round((float) size / 1_000_000F), Math.round(AudioPlayer.SERVER_CONFIG.maxUploadSize.get().floatValue() / 1_000_000F)));
+                    throw new IOException("Превышен максимальный размер файла (%sMB>%sMB)".formatted(Math.round((float) size / 1_000_000F), Math.round(AudioPlayer.SERVER_CONFIG.maxUploadSize.get().floatValue() / 1_000_000F)));
                 }
 
                 String filename = file.get("filename").getAsString();
@@ -65,7 +65,7 @@ public class Filebin {
                 return;
             }
         }
-        throw new IOException("No mp3 or wav files uploaded");
+        throw new IOException("Не загружаются файлы mp3 или wav");
     }
 
     public static String getBin(UUID sound) {
