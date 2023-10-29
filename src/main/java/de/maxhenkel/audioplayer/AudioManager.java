@@ -77,7 +77,7 @@ public class AudioManager {
 
         long size = Files.size(file);
         if (size > AudioPlayer.SERVER_CONFIG.maxUploadSize.get()) {
-            throw new IOException("Maximum file size exceeded (%sMB>%sMB)".formatted(Math.round((float) size / 1_000_000F), Math.round(AudioPlayer.SERVER_CONFIG.maxUploadSize.get().floatValue() / 1_000_000F)));
+            throw new IOException("Превышен максимальный размер файла (%sMB>%sMB)".formatted(Math.round((float) size / 1_000_000F), Math.round(AudioPlayer.SERVER_CONFIG.maxUploadSize.get().floatValue() / 1_000_000F)));
         }
 
         AudioConverter.AudioType audioType = AudioConverter.getAudioType(file);
@@ -85,7 +85,7 @@ public class AudioManager {
 
         Path soundFile = getSoundFile(server, id, audioType.getExtension());
         if (Files.exists(soundFile)) {
-            throw new FileAlreadyExistsException("This audio already exists");
+            throw new FileAlreadyExistsException("Эта аудиозапись уже существует");
         }
         Files.createDirectories(soundFile.getParent());
 
@@ -94,16 +94,16 @@ public class AudioManager {
 
     public static void checkExtensionAllowed(@Nullable AudioConverter.AudioType audioType) throws UnsupportedAudioFileException {
         if (audioType == null) {
-            throw new UnsupportedAudioFileException("Unsupported audio format");
+            throw new UnsupportedAudioFileException("Неподдерживаемый формат аудио");
         }
         if (audioType.equals(AudioConverter.AudioType.MP3)) {
             if (!AudioPlayer.SERVER_CONFIG.allowMp3Upload.get()) {
-                throw new UnsupportedAudioFileException("Uploading mp3 files is not allowed on this server");
+                throw new UnsupportedAudioFileException("Загрузка mp3-файлов на этом сервере запрещена");
             }
         }
         if (audioType.equals(AudioConverter.AudioType.WAV)) {
             if (!AudioPlayer.SERVER_CONFIG.allowWavUpload.get()) {
-                throw new UnsupportedAudioFileException("Uploading wav files is not allowed on this server");
+                throw new UnsupportedAudioFileException("Загрузка wav-файлов на этом сервере запрещена");
             }
         }
     }
@@ -119,7 +119,7 @@ public class AudioManager {
             bos.write(data, 0, nRead);
             if (bos.size() > limit) {
                 bis.close();
-                throw new IOException("Maximum file size of %sMB exceeded".formatted((int) (((float) limit) / 1_000_000F)));
+                throw new IOException("Превышен максимальный размер файла %sMB".formatted((int) (((float) limit) / 1_000_000F)));
             }
         }
         bis.close();
