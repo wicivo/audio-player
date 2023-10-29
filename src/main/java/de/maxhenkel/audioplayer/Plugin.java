@@ -45,14 +45,14 @@ public class Plugin implements VoicechatPlugin {
         voicechatServerApi = event.getVoicechat();
         musicDiscs = voicechatServerApi.volumeCategoryBuilder()
                 .setId(MUSIC_DISC_CATEGORY)
-                .setName("Музыкальные диски")
-                .setDescription("Громкость всех пользовательских музыкальных дисков")
+                .setName("Music discs")
+                .setDescription("The volume of all custom music discs")
                 .setIcon(getIcon("category_music_discs.png"))
                 .build();
         goatHorns = voicechatServerApi.volumeCategoryBuilder()
                 .setId(GOAT_HORN_CATEGORY)
-                .setName("Козьи рога")
-                .setDescription("Громкость всех пользовательских козьих рогов")
+                .setName("Goat horns")
+                .setDescription("The volume of all custom goat horns")
                 .setIcon(getIcon("category_goat_horns.png"))
                 .build();
 
